@@ -6,8 +6,23 @@ wxBEGIN_EVENT_TABLE(Seats, wxFrame)
 wxEND_EVENT_TABLE()
 
 
-Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), wxSize(500, 500))
+Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), wxSize(800, 800))
 {
+
+	//Toolbar for forward home and back buttons
+	::wxInitAllImageHandlers();
+	wxBitmap bmpBack("Assets/back.png", wxBITMAP_TYPE_PNG);
+	wxBitmap bmpForward("Assets/forward.png", wxBITMAP_TYPE_PNG);
+	wxBitmap bmpHome("Assets/home.png", wxBITMAP_TYPE_PNG);
+	wxToolBar* toolBar = CreateToolBar();
+
+	//add toolbar items
+	toolBar->AddTool(wxID_ANY, "BAACK", bmpBack);
+	toolBar->AddTool(wxID_ANY, "HOME", bmpHome);
+	toolBar->AddTool(wxID_ANY, "FORWARD", bmpForward);
+
+	//Show Toolbar
+	toolBar->Realize();
 	//Grid
 	/*
 	gridSizer = new wxGridSizer(6, 6, 10, 10);
