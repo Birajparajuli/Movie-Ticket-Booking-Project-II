@@ -25,6 +25,7 @@ private:
 	wxStaticText* m_Text = nullptr;
 
 	wxStatusBar* stats = nullptr;
+	
 
 	//wxGrid* grid = nullptr;
 

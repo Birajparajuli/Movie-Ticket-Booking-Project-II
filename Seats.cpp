@@ -25,13 +25,14 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 	*/
 
 	//Box Sizer
+	/*
 	wxBoxSizer* secondSizer =new wxBoxSizer(wxHORIZONTAL);
 	wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
 	wxTextCtrl* FirstName = new wxTextCtrl(this, wxID_ANY);
 	secondSizer->Add(FirstName, 1, wxEXPAND | wxALL, 10);
 	SetSizer(secondSizer);
 	mainSizer->Add(secondSizer);
-
+	*/
 
 	btn = new wxButton * [FieldHeight * FieldWidth];
 	gridSizer = new wxGridSizer(FieldWidth, FieldHeight, 20, 20);
@@ -51,7 +52,7 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 
 	//Add grid sizer to this window
 	this->SetSizer(gridSizer);
-	mainSizer->Add(gridSizer);
+	//mainSizer->Add(gridSizer);
 
 	//wxImage::AddHandler(new wxJPEGHandler);
 	//wxBitmap background(wxT("Assets/2.jpg"), wxBITMAP_TYPE_JPEG);

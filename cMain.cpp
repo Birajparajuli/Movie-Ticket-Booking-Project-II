@@ -15,7 +15,7 @@ wxBEGIN_EVENT_TABLE(cMain, wxFrame)
 	cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30, 30), wxSize(1000, 800))
 {
 	wxPanel* panel = new wxPanel(this, -1);
-	m_Text = new wxStaticText(panel, wxID_ANY, "MOVIES", wxPoint(500, 0));
+	//m_Text = new wxStaticText(panel, wxID_ANY, "MOVIES", wxPoint(500, 0));
 	//Menu Bar
 	m_MenuBar = new wxMenuBar();
 	m_MenuBar->SetBackgroundColour(wxColor(1, 2, 3));
@@ -29,8 +29,24 @@ wxBEGIN_EVENT_TABLE(cMain, wxFrame)
 	//Add Menu Items to Menu Bar
 	m_MenuBar->Append(menuFile, "All");
 
-	//Toolbar for forward and back buttons
-	wxToolBar* toolBar = new wxToolBar(panel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL | wxNO_BORDER);
+
+
+	//Toolbar for forward home and back buttons
+	::wxInitAllImageHandlers();
+	wxBitmap bmpBack("Assets/back.png", wxBITMAP_TYPE_PNG);
+	wxBitmap bmpForward("Assets/forward.png", wxBITMAP_TYPE_PNG);
+	wxBitmap bmpHome("Assets/home.png", wxBITMAP_TYPE_PNG);
+	wxToolBar* toolBar = CreateToolBar();
+
+	//add toolbar items
+	toolBar->AddTool(wxID_ANY, "BAACK", bmpBack);
+	toolBar->AddTool(wxID_ANY, "HOME", bmpHome);
+	toolBar->AddTool(wxID_ANY, "FORWARD", bmpForward);
+
+	//Show Toolbar
+	toolBar->Realize();
+	
+	
 
 
 	//Creating Grid Like Excel || Can be used in Admin Section
