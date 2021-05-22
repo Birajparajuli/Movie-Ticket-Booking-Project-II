@@ -6,16 +6,25 @@
 //Event Handlers Here
 
 wxBEGIN_EVENT_TABLE(cMain, wxFrame)
-	EVT_MENU(10002, cMain::OnMenuExit)
-		EVT_MENU(10001, cMain::OnAdmin)
-			EVT_BUTTON(222, cMain::ClrScr)
-				wxEND_EVENT_TABLE()
+EVT_MENU(10002, cMain::OnMenuExit)
+EVT_MENU(10001, cMain::OnAdmin)
+EVT_BUTTON(222, cMain::ClrScr)
+wxEND_EVENT_TABLE()
 
-	//Main Window
-	cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30, 30), wxSize(1000, 800))
+//Main Window
+cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30, 30), wxSize(1000, 800))
 {
 	wxPanel* panel = new wxPanel(this, -1);
 	//m_Text = new wxStaticText(panel, wxID_ANY, "MOVIES", wxPoint(500, 0));
+	
+	//Icon
+	wxIcon icon4;
+	::wxInitAllImageHandlers();
+	wxBitmap bitmap(wxT("Assets/logo/icon.png"), wxBITMAP_TYPE_PNG);
+	icon4.CopyFromBitmap(bitmap);
+
+	this->SetIcon(icon4);
+
 	//Menu Bar
 	m_MenuBar = new wxMenuBar();
 	m_MenuBar->SetBackgroundColour(wxColor(1, 2, 3));

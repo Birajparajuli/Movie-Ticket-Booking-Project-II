@@ -37,6 +37,7 @@ void AdminLogin::Login(wxCommandEvent& evt)
 
 		AddMovie* a = new AddMovie("Admin:Add New Movie To List");
 		a->Show();
+		Close();
 		evt.Skip();
 	}
 	else if ((getID=="")&&(getPW=="")) {
