@@ -30,6 +30,9 @@
     <ClInclude Include="Seats.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AddMovie.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cMain.cpp">
@@ -45,6 +48,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Seats.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AddMovie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddMovie.h" />
     <ClInclude Include="Booking.h" />
     <ClInclude Include="cApp.h" />
     <ClInclude Include="cMain.h" />
@@ -26,6 +27,7 @@
     <ClInclude Include="Seats.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddMovie.cpp" />
     <ClCompile Include="Booking.cpp" />
     <ClCompile Include="cApp.cpp" />
     <ClCompile Include="cMain.cpp" />
