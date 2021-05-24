@@ -93,7 +93,12 @@ void AddMovie::addFile(wxCommandEvent& evt)
 	if (dialog.ShowModal() == wxID_OK)
 	{
 		wxString path = dialog.GetPath();
-		int filterIndex = dialog.GetFilterIndex(); //returns booll value i think
+		wxString pastePath = "Assets\poster";
+		int filterIndex = dialog.GetFilterIndex(); //returns bool value i think
+		wxLogStatus(path);
+
+		wxCopyFile(path, pastePath,true);
+
 		
 	}
 

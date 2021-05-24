@@ -25,8 +25,10 @@ private:
 
 	wxStatusBar* stats = nullptr;
 
-	
-
+	//wxPanel 
+	wxPanel* topPanel = nullptr;
+	wxPanel* panel = nullptr;
+	wxPanel* bottomPanel = nullptr;
 
 
 	//void onClickBook(wxCommandEvent& evt);

@@ -8,6 +8,19 @@ wxEND_EVENT_TABLE()
 
 Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), wxSize(800, 800))
 {
+	topPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
+	panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
+	//panel->SetBackgroundColour(wxColour(100, 100, 200));
+
+	bottomPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
+	bottomPanel->SetBackgroundColour(wxColour(100,200,100));
+	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+
+	sizer->Add(topPanel, 1, wxEXPAND | wxALL, 20);
+	sizer->Add(panel, 3, wxEXPAND|wxLEFT|wxRIGHT,5);
+	sizer->Add(bottomPanel, 1, wxEXPAND|wxALL,5);
+
+	this->SetSizer(sizer);
 
 	//Toolbar for forward home and back buttons
 	::wxInitAllImageHandlers();
@@ -56,7 +69,7 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 
 	for (int x = 0; x < FieldWidth; x++) {
 		for (int y = 0; y < FieldHeight; y++) {
-			btn[y * FieldWidth + x ] = new wxButton(this, 10000+(y*FieldWidth+x));
+			btn[y * FieldWidth + x ] = new wxButton(panel, 10000+(y*FieldWidth+x));
 			gridSizer->Add(btn[y * FieldWidth + x], 1, wxEXPAND | wxALL);
 			btn[y * FieldWidth + x]->SetBackgroundColour(not_booked);
 
@@ -66,7 +79,7 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 	}
 
 	//Add grid sizer to this window
-	this->SetSizer(gridSizer);
+	panel->SetSizer(gridSizer);
 	//mainSizer->Add(gridSizer);
 
 	//wxImage::AddHandler(new wxJPEGHandler);
@@ -112,10 +125,10 @@ void Seats::OnButtonClicked(wxCommandEvent& evt) {
 	//wxString con = wxString("Total seats selected")::Format(wxT("%d"), s);
 	//m_Text = new wxStaticText(this, wxID_ANY, "Seat Selected", wxPoint(40, 40));
 	
-	m_Text = new wxStaticText(this, wxID_ANY, "Seat Selected", wxPoint(40,40));
-	m_Text = new wxStaticText(this, wxID_ANY, wxT(" "), wxPoint(40,60));
-	m_Price = new wxStaticText(this, wxID_ANY, "Price Rs.", wxPoint(40, 80));
-	m_Price = new wxStaticText(this, wxID_ANY, wxT("0"), wxPoint(40, 100));
+	m_Text = new wxStaticText(bottomPanel, wxID_ANY, "Seat Selected", wxPoint(40,40));
+	m_Text = new wxStaticText(bottomPanel, wxID_ANY, wxT(" "), wxPoint(40,60));
+	m_Price = new wxStaticText(bottomPanel, wxID_ANY, "Price Rs.", wxPoint(40, 80));
+	m_Price = new wxStaticText(bottomPanel, wxID_ANY, wxT("0"), wxPoint(40, 100));
 	m_Text->SetLabel(wxString::Format(wxT(" %d"), s));
 	m_Price->SetLabel(wxString::Format(wxT(" Rs. %d"), s*500));
 	
