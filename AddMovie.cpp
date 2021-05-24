@@ -9,11 +9,28 @@ wxEND_EVENT_TABLE()
 AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),wxSize(800,800)) {
 	//wxStaticText *m_Text = new wxStaticText(this, wxID_ANY, "ADMIN LOGIN", wxPoint(140, 30), wxSize(300, 40));
 
+	//Panel Design
+	topPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200,100));
+	topPanel->SetBackgroundColour(wxColour(100, 100, 200));
 
+	bottomPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
+	bottomPanel->SetBackgroundColour(wxColour(100,200,100));
 
+	rightPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
+	rightPanel->SetBackgroundColour(wxColour(200, 200, 100));
 
+	sizer = new wxBoxSizer(wxVERTICAL);
+	sizer->Add(topPanel, 1,wxEXPAND|wxALL,5);
+	sizer->Add(bottomPanel, 1, wxEXPAND | wxRIGHT| wxBOTTOM | wxLEFT , 5);
+
+	sizer1 = new wxBoxSizer(wxHORIZONTAL);
+	
+	sizer1->Add(rightPanel, 1, wxEXPAND);
+	sizer1->Add(sizer, 1, wxEXPAND | wxALL);
+
+	this->SetSizer(sizer);
 	//Movie Info Input
-
+	/*
 	wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
 
 	//Movie Name Field
@@ -72,7 +89,7 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 	SetSizer(mainSizer);
 
 	//mainSizer->Fit(this);
-
+	*/
 
 }
 

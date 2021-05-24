@@ -14,6 +14,14 @@ public:
 
 	void addFile(wxCommandEvent& evt);
 	void addMovie(wxCommandEvent& evt);
+
+	//Frames
+	wxPanel* topPanel = nullptr;
+	wxPanel* rightPanel = nullptr;
+	wxPanel* bottomPanel = nullptr;
+	wxBoxSizer* sizer = nullptr;
+	wxBoxSizer* sizer1 = nullptr;
+
 	wxDECLARE_EVENT_TABLE();
 };
 
