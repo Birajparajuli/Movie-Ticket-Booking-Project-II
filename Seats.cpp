@@ -10,13 +10,13 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 {
 	topPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
 	panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
-	//panel->SetBackgroundColour(wxColour(100, 100, 200));
+	topPanel->SetBackgroundColour(wxColour(0, 0, 0));
 
 	bottomPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
 	bottomPanel->SetBackgroundColour(wxColour(100,200,100));
 	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
 
-	sizer->Add(topPanel, 1, wxEXPAND | wxALL, 20);
+	sizer->Add(topPanel, 1, wxEXPAND | wxALL, 5);
 	sizer->Add(panel, 3, wxEXPAND|wxLEFT|wxRIGHT,5);
 	sizer->Add(bottomPanel, 1, wxEXPAND|wxALL,5);
 
@@ -36,6 +36,15 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 
 	//Show Toolbar
 	toolBar->Realize();
+
+	//Theater BG
+	::wxInitAllImageHandlers();
+	wxBitmap bmp1("Assets/theater-bg.jpg", wxBITMAP_TYPE_JPEG);
+	wxStaticBitmap* sb = new wxStaticBitmap(topPanel, 1, bmp1);
+	sb->Centre();
+	
+
+
 	//Grid
 	/*
 	gridSizer = new wxGridSizer(6, 6, 10, 10);
@@ -62,14 +71,18 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 	mainSizer->Add(secondSizer);
 	*/
 
-	btn = new wxButton * [FieldHeight * FieldWidth];
+	btn = new wxBitmapButton * [FieldHeight * FieldWidth];
 	gridSizer = new wxGridSizer(FieldWidth, FieldHeight, 20, 20);
 	
 	
 
 	for (int x = 0; x < FieldWidth; x++) {
 		for (int y = 0; y < FieldHeight; y++) {
-			btn[y * FieldWidth + x ] = new wxButton(panel, 10000+(y*FieldWidth+x));
+
+			::wxInitAllImageHandlers();
+			wxBitmap seat("Assets/seat.png", wxBITMAP_TYPE_PNG);
+
+			btn[y * FieldWidth + x ] = new wxBitmapButton(panel, 10000+(y*FieldWidth+x),seat);
 			gridSizer->Add(btn[y * FieldWidth + x], 1, wxEXPAND | wxALL);
 			btn[y * FieldWidth + x]->SetBackgroundColour(not_booked);
 

@@ -21,7 +21,7 @@ public:
 	wxPanel* bottomPanel = nullptr;
 	wxBoxSizer* sizer = nullptr;
 	wxBoxSizer* sizer1 = nullptr;
-
+	
 	wxDECLARE_EVENT_TABLE();
 };
 

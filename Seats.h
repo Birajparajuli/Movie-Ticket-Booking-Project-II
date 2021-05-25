@@ -10,11 +10,11 @@ public:
 	Seats(const wxString& title);
 	~Seats();
 	wxGridSizer* gridSizer = nullptr;
-	int FieldWidth = 7;
-	int FieldHeight = 7;
+	int FieldWidth = 6;
+	int FieldHeight = 6;
 	int s = 0;
-	wxButton** btn;
-	wxBitmapButton** button;
+	//wxButton** btn;
+	wxBitmapButton** btn;
 	wxColour not_booked = wxColour(0, 128, 0);
 private:
 	wxButton* m_Seats = nullptr;
@@ -29,7 +29,7 @@ private:
 	wxPanel* topPanel = nullptr;
 	wxPanel* panel = nullptr;
 	wxPanel* bottomPanel = nullptr;
-
+	wxStaticBitmap* bg_image = nullptr;
 
 	//void onClickBook(wxCommandEvent& evt);
 	void OnButtonClicked(wxCommandEvent& evt);
