@@ -127,7 +127,7 @@ wxColour booked = wxColour(0, 128, 128);
 */
 
 void Seats::OnButtonClicked(wxCommandEvent& evt) {
-	wxColour booked = wxColour(0, 128, 128);
+	wxColour booked = wxColour(450, 0, 0);
 	int x = (evt.GetId() - 10000) % FieldWidth;
 	int y = (evt.GetId() - 10000) / FieldHeight;
 	btn[y * FieldWidth + x]->SetBackgroundColour(booked);

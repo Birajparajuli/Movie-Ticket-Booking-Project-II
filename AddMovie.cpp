@@ -9,7 +9,9 @@ wxEND_EVENT_TABLE()
 AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),wxSize(800,800)) {
 	//wxStaticText *m_Text = new wxStaticText(this, wxID_ANY, "ADMIN LOGIN", wxPoint(140, 30), wxSize(300, 40));
 
-	//Panel Design
+	/*-----------------------------------------------------------------
+								ADMIN PANEL LAYOUT
+	--------------------------------------------------------------------*/
 	topPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200,100));
 	topPanel->SetBackgroundColour(wxColour(100, 100, 200));
 
@@ -17,79 +19,107 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 	bottomPanel->SetBackgroundColour(wxColour(100,200,100));
 
 	rightPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
-	rightPanel->SetBackgroundColour(wxColour(200, 200, 100));
+	rightPanel->SetBackgroundColour(wxColour(0, 200, 100));
+
+	
+	windowSizer = new wxBoxSizer(wxHORIZONTAL);
+
+	sizer1 = new wxBoxSizer(wxVERTICAL);
+	sizer1->Add(rightPanel, 1, wxEXPAND | wxRIGHT | wxBOTTOM | wxRIGHT,5);
 
 	sizer = new wxBoxSizer(wxVERTICAL);
-	sizer->Add(topPanel, 1,wxEXPAND|wxALL,5);
-	sizer->Add(bottomPanel, 1, wxEXPAND | wxRIGHT| wxBOTTOM | wxLEFT , 5);
+	sizer->Add(topPanel, 1, wxEXPAND | wxALL, 5);
+	sizer->Add(bottomPanel, 1, wxEXPAND | wxRIGHT | wxBOTTOM | wxLEFT, 5);
 
-	sizer1 = new wxBoxSizer(wxHORIZONTAL);
+	windowSizer->Add(sizer, 1, wxEXPAND | wxALL);
+	windowSizer->Add(sizer1, 2, wxEXPAND | wxALL);
+
+	this->SetSizer(windowSizer);
+
+
+	/*-------------------------------------------------------
+						ADD NEW MOVIE PANEL
+	---------------------------------------------------------*/
 	
-	sizer1->Add(rightPanel, 1, wxEXPAND);
-	sizer1->Add(sizer, 1, wxEXPAND | wxALL);
-
-	this->SetSizer(sizer);
-	//Movie Info Input
-	/*
 	wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
 
 	//Movie Name Field
+	wxBoxSizer* nameSizer = new wxBoxSizer(wxVERTICAL);
 
-	wxBoxSizer* nameSizer = new wxBoxSizer(wxHORIZONTAL);
+	//Title 
+	wxStaticText* addMovieTitle = new wxStaticText(topPanel, wxID_ANY,"Add New Movie");
+	addMovieTitle->SetBackgroundColour(wxColour(400, 10, 10));
+	nameSizer->Add(addMovieTitle);
 
 	//Movie name label
-	wxStaticText* nameLabel = new wxStaticText(this, wxID_ANY,"Movie Name");
+	wxStaticText* nameLabel = new wxStaticText(topPanel, wxID_ANY,"Movie Name");
 	nameSizer->Add(nameLabel);
 
 	//space between label and box
-	nameSizer->Add(20, 0);
+	nameSizer->Add(0, 10);
 
 	//Movie name box
-	wxTextCtrl* movieName = new wxTextCtrl(this, wxID_ANY);
-	nameSizer->Add(movieName,1);
-	
+	movieName = new wxTextCtrl(topPanel, wxID_ANY);
+	nameSizer->Add(movieName,1,wxEXPAND|wxRIGHT);
 	mainSizer->Add(nameSizer, 0,wxEXPAND|wxALL,5);
 
-
-
 	//Movie price Field
-	wxBoxSizer* priceSizer = new wxBoxSizer(wxHORIZONTAL);
+	wxBoxSizer* priceSizer = new wxBoxSizer(wxVERTICAL);
 
 	//Movie pice label
-	wxStaticText* priceLabel = new wxStaticText(this, wxID_ANY, "Movie Price");
+	wxStaticText* priceLabel = new wxStaticText(topPanel, wxID_ANY, "Movie Price");
 	priceSizer->Add(priceLabel);
 
 	//space between label and box
-	priceSizer->Add(20, 0);
+	priceSizer->Add(0, 10);
 
 	//Movie price box
-	wxTextCtrl* moviePrice = new wxTextCtrl(this, wxID_ANY);
-	priceSizer->Add(moviePrice, 1);
-
+	moviePrice = new wxTextCtrl(topPanel, wxID_ANY);
+	priceSizer->Add(moviePrice, 1, wxEXPAND | wxRIGHT);
 	mainSizer->Add(priceSizer, 0, wxEXPAND | wxALL, 5);
 
-	SetSizer(mainSizer);
 
-	//Add image button
+	//Add movie poster
 	wxBoxSizer* buttonSizer = new wxBoxSizer(wxHORIZONTAL);
-	//Movie price box
-	wxButton* fileBtn = new wxButton(this, 2020, "Add Poster Image");
+
+	//Movie poster button
+	wxButton* fileBtn = new wxButton(topPanel, 2020, "Add Poster Image");
 	buttonSizer->Add(fileBtn);
-
 	mainSizer->Add(buttonSizer, 0, wxEXPAND | wxALL, 5);
-
 
 	//Add movie button
 	wxBoxSizer* AddButtonSizer = new wxBoxSizer(wxHORIZONTAL);
-	//Movie price box
-	wxButton* addBtn = new wxButton(this, 2021, "Add Movie");
+	wxButton* addBtn = new wxButton(topPanel, 2021, "Add Movie");
 	AddButtonSizer->Add(addBtn);
-
 	mainSizer->Add(AddButtonSizer, 0, wxEXPAND | wxALL, 5);
-	SetSizer(mainSizer);
 
-	//mainSizer->Fit(this);
-	*/
+	//setting sizers
+	topPanel->SetSizer(mainSizer);
+
+	/*---------------------------------------------------------------
+				           DELETE MOVIES PANEL
+	-----------------------------------------------------------------*/
+
+
+
+
+	/*-----------------------------------------------------------------
+				         BOOKED SEAT LISTS
+	-------------------------------------------------------------------*/
+	tableGrid = new wxGrid(rightPanel, wxID_ANY, wxDefaultPosition, wxSize(400, 300));
+	tableGrid->CreateGrid(10, 4);
+	tableGrid->SetRowSize(0, 60);
+	tableGrid->SetColSize(0, 120);
+
+	tableGrid->SetCellValue(0, 0, wxT("HAHAHAHA"));
+	tableGrid->SetCellValue(0, 1, wxT("HAHAHAHA"));
+	tableGrid->SetCellValue(0, 2, wxT("HAHAHAHA"));
+	tableGrid->SetCellValue(01, 3, wxT("HAHAHAHA"));
+	tableGrid->SetCellValue(02, 3, wxT("HAHAHAHA"));
+	tableGrid->SetCellValue(03, 3, wxT("HAHAHAHA"));
+	tableGrid->SetCellValue(04, 3, wxT("HAHAHAHA"));
+	tableGrid->SetCellValue(05, 3, wxT("HAHAHAHA"));
+	
 
 }
 
@@ -124,6 +154,19 @@ void AddMovie::addFile(wxCommandEvent& evt)
 
 void AddMovie::addMovie(wxCommandEvent& evt)
 {
-	wxLogStatus(wxT("You pressed Add Button"));
+	if (movieName->GetValue() == "" && moviePrice->GetValue() == "") {
+		wxMessageDialog dialog(NULL, wxT("Movie Name/ Movie Price cannot be empty."), wxT("ERROR !"), wxOK_DEFAULT | wxICON_INFORMATION);
+
+		switch (dialog.ShowModal())
+		{
+		case wxID_OK:
+			wxLogStatus(wxT("You pressed ok "));
+			break;
+		}
+
+	}
+	else {
+
+	}
 
 }

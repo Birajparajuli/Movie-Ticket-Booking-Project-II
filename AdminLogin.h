@@ -22,8 +22,8 @@ private:
 	//char Pword[10] = "password";
 	//char getPW[10], getID[10];
 	
-	wxString Uname = "admin";
-	wxString Pword = "password";
+	wxString Uname = "a";
+	wxString Pword = "a";
 	wxString getID, getPW;
 
 	//Events

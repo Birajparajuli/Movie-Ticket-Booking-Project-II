@@ -2,6 +2,7 @@
 
 #include "wx/wx.h"
 #include "wx/filedlg.h"
+#include "wx/grid.h"
 
 
 
@@ -19,9 +20,13 @@ public:
 	wxPanel* topPanel = nullptr;
 	wxPanel* rightPanel = nullptr;
 	wxPanel* bottomPanel = nullptr;
+	wxBoxSizer* windowSizer = nullptr;
 	wxBoxSizer* sizer = nullptr;
 	wxBoxSizer* sizer1 = nullptr;
-	
+	wxGrid* tableGrid = nullptr;
+	wxTextCtrl* movieName;
+	wxTextCtrl* moviePrice;
+
 	wxDECLARE_EVENT_TABLE();
 };
 

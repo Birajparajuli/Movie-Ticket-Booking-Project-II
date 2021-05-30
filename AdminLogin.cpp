@@ -29,7 +29,7 @@ AdminLogin::~AdminLogin() {
 
 }
 void AdminLogin::Login(wxCommandEvent& evt)
-{
+{	
 	getPW = m_InputPS->GetValue();
 	getID = m_InputID->GetValue();
 

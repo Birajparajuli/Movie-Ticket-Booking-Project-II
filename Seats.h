@@ -29,6 +29,7 @@ private:
 	wxPanel* topPanel = nullptr;
 	wxPanel* panel = nullptr;
 	wxPanel* bottomPanel = nullptr;
+	
 	wxStaticBitmap* bg_image = nullptr;
 
 	//void onClickBook(wxCommandEvent& evt);
