@@ -106,21 +106,24 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 	/*-----------------------------------------------------------------
 				         BOOKED SEAT LISTS
 	-------------------------------------------------------------------*/
-	tableGrid = new wxGrid(rightPanel, wxID_ANY, wxDefaultPosition, wxSize(400, 300));
-	tableGrid->CreateGrid(10, 4);
-	tableGrid->SetRowSize(0, 60);
-	tableGrid->SetColSize(0, 120);
+	basicListView = new wxListView(rightPanel);
+	basicListView->AppendColumn("SN");
+	basicListView->AppendColumn("Movie Name");
+	basicListView->AppendColumn("Booked Seats");
+	basicListView->AppendColumn("Name");
+	basicListView->AppendColumn("Amount");
+	basicListView->SetColumnWidth(0, 80);
+	basicListView->SetColumnWidth(1, 140);
+	basicListView->SetColumnWidth(2, 140);
+	basicListView->SetColumnWidth(3, 120);
+	basicListView->SetColumnWidth(4, 100);
 
-	tableGrid->SetCellValue(0, 0, wxT("HAHAHAHA"));
-	tableGrid->SetCellValue(0, 1, wxT("HAHAHAHA"));
-	tableGrid->SetCellValue(0, 2, wxT("HAHAHAHA"));
-	tableGrid->SetCellValue(01, 3, wxT("HAHAHAHA"));
-	tableGrid->SetCellValue(02, 3, wxT("HAHAHAHA"));
-	tableGrid->SetCellValue(03, 3, wxT("HAHAHAHA"));
-	tableGrid->SetCellValue(04, 3, wxT("HAHAHAHA"));
-	tableGrid->SetCellValue(05, 3, wxT("HAHAHAHA"));
 	
+	auto sizer = new wxBoxSizer(wxVERTICAL);
+	sizer->Add(basicListView, 1, wxALL|wxEXPAND, 0);
+	rightPanel->SetSizerAndFit(sizer);
 
+	populateListView();
 }
 
 AddMovie::~AddMovie() {
@@ -169,4 +172,19 @@ void AddMovie::addMovie(wxCommandEvent& evt)
 
 	}
 
+}
+
+void AddMovie::populateListView()
+{
+	basicListView->InsertItem(0, "1");
+	basicListView->SetItem(0,1, "TENET");
+	basicListView->SetItem(0,2, "A1,A2,A3");
+	basicListView->SetItem(0,3, "Biraj");
+	basicListView->SetItem(0,4, "1500");
+
+	basicListView->InsertItem(1, "2");
+	basicListView->SetItem(1, 1, "ENDGAME");
+	basicListView->SetItem(1, 2, "A1,A2,A3");
+	basicListView->SetItem(1, 3, "Biraj");
+	basicListView->SetItem(1, 4, "1500");
 }

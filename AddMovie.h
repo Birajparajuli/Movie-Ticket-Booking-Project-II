@@ -3,6 +3,7 @@
 #include "wx/wx.h"
 #include "wx/filedlg.h"
 #include "wx/grid.h"
+#include "wx/listctrl.h"
 
 
 
@@ -26,6 +27,9 @@ public:
 	wxGrid* tableGrid = nullptr;
 	wxTextCtrl* movieName;
 	wxTextCtrl* moviePrice;
+
+	void populateListView();
+	wxListView* basicListView;
 
 	wxDECLARE_EVENT_TABLE();
 };

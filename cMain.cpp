@@ -75,6 +75,8 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30,
 
 	//Movie List
 	wxImage::AddHandler(new wxJPEGHandler);
+
+	
 	wxBitmap bmp(wxT("Assets/2.jpg"), wxBITMAP_TYPE_JPEG);
 
 
