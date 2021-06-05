@@ -6,6 +6,8 @@ EVT_BUTTON(2020, AddMovie::addFile)
 EVT_BUTTON(2021, AddMovie::addMovie)
 wxEND_EVENT_TABLE()
 
+
+
 AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),wxSize(800,800)) {
 	//wxStaticText *m_Text = new wxStaticText(this, wxID_ANY, "ADMIN LOGIN", wxPoint(140, 30), wxSize(300, 40));
 
@@ -36,7 +38,7 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 
 	this->SetSizer(windowSizer);
 
-
+	
 	/*-------------------------------------------------------
 						ADD NEW MOVIE PANEL
 	---------------------------------------------------------*/
@@ -100,7 +102,7 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 				           DELETE MOVIES PANEL
 	-----------------------------------------------------------------*/
 
-
+	
 
 
 	/*-----------------------------------------------------------------
@@ -169,7 +171,12 @@ void AddMovie::addMovie(wxCommandEvent& evt)
 
 	}
 	else {
-
+		wxFile file;
+		file.Create("Datafile", true);
+		if (file.IsOpened()) {
+			wxPuts("File Is opened");
+			
+		}
 	}
 
 }
