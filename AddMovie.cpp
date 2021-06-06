@@ -8,6 +8,8 @@ wxEND_EVENT_TABLE()
 
 
 
+NewMovie movie;
+
 AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),wxSize(800,800)) {
 	//wxStaticText *m_Text = new wxStaticText(this, wxID_ANY, "ADMIN LOGIN", wxPoint(140, 30), wxSize(300, 40));
 
@@ -110,14 +112,16 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 	-------------------------------------------------------------------*/
 	basicListView = new wxListView(rightPanel);
 	basicListView->AppendColumn("SN");
+	basicListView->AppendColumn("Date/time");
 	basicListView->AppendColumn("Movie Name");
 	basicListView->AppendColumn("Booked Seats");
 	basicListView->AppendColumn("Name");
 	basicListView->AppendColumn("Amount");
-	basicListView->SetColumnWidth(0, 80);
+	basicListView->SetColumnWidth(0, 40);
 	basicListView->SetColumnWidth(1, 140);
 	basicListView->SetColumnWidth(2, 140);
 	basicListView->SetColumnWidth(3, 120);
+	basicListView->SetColumnWidth(4, 100);
 	basicListView->SetColumnWidth(4, 100);
 
 	
@@ -144,7 +148,7 @@ void AddMovie::addFile(wxCommandEvent& evt)
 	wxFileDialog dialog(this, caption, defaultDir, defaultFilename, wildcard);
 	if (dialog.ShowModal() == wxID_OK)
 	{
-		wxString path = dialog.GetPath();
+		path = dialog.GetPath();
 		wxString pastePath = "Assets\poster";
 		int filterIndex = dialog.GetFilterIndex(); //returns bool value i think
 		wxLogStatus(path);
@@ -171,11 +175,30 @@ void AddMovie::addMovie(wxCommandEvent& evt)
 
 	}
 	else {
+		
+		
 		wxFile file;
-		file.Create("Datafile", true);
+		file.Create("Datafile.dat", true);
 		if (file.IsOpened()) {
-			wxPuts("File Is opened");
+			wxLogStatus(wxT("File is opened"));
+			//getName = movieName->GetValue();
 			
+			wxStrcpy(movie.name, movieName->GetValue());
+			//movie.price= moviePrice->GetValue();
+			wxStrcpy(movie.filePath, path);
+			file.Write(movie.name);
+			//file.Write(movie.filePath);
+			//file.write()
+
+			//Movie added Popup
+			wxMessageDialog dialog(NULL, wxT("New Movie Added Sucessfully."), wxT("Wohoooooo !"), wxOK_DEFAULT | wxICON_INFORMATION);
+
+			switch (dialog.ShowModal())
+			{
+			case wxID_OK:
+				wxLogStatus(wxT("You pressed ok "));
+				break;
+			}
 		}
 	}
 
@@ -184,14 +207,21 @@ void AddMovie::addMovie(wxCommandEvent& evt)
 void AddMovie::populateListView()
 {
 	basicListView->InsertItem(0, "1");
-	basicListView->SetItem(0,1, "TENET");
-	basicListView->SetItem(0,2, "A1,A2,A3");
-	basicListView->SetItem(0,3, "Biraj");
-	basicListView->SetItem(0,4, "1500");
+	basicListView->SetItem(0,1, date1);
+	basicListView->SetItem(0,2, "TENET");
+	basicListView->SetItem(0,3, "A1,A2,A3");
+	basicListView->SetItem(0,4, "biraj");
+	basicListView->SetItem(0,5, "1500");
 
 	basicListView->InsertItem(1, "2");
 	basicListView->SetItem(1, 1, "ENDGAME");
 	basicListView->SetItem(1, 2, "A1,A2,A3");
 	basicListView->SetItem(1, 3, "Biraj");
 	basicListView->SetItem(1, 4, "1500");
+
+	basicListView->InsertItem(2, "2");
+	basicListView->SetItem(2, 1, "ENDGAME");
+	basicListView->SetItem(2, 2, "A1,A2,A3");
+	basicListView->SetItem(2, 3, "Biraj");
+	basicListView->SetItem(2, 4, "1500");
 }

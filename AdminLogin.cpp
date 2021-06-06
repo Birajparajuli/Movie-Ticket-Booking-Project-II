@@ -4,6 +4,7 @@
 #include "AddMovie.h"
 #include "cMain.h"
 
+
 //Event Handlers
 wxBEGIN_EVENT_TABLE(AdminLogin, wxFrame)
 EVT_BUTTON(1010, AdminLogin::Login)

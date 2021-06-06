@@ -144,7 +144,7 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30,
 	//Bottom Status Bar
 	stats = CreateStatusBar(2);
 	stats->SetStatusText(_("Hamro Movie Theater"));
-	stats->SetStatusText(_("Date and Time will be placed here"), 1);
+	stats->SetStatusText(date1, 1);
 
 }
 cMain::~cMain()

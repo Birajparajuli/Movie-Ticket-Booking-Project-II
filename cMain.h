@@ -3,7 +3,7 @@
 #include "wx/image.h"
 #include "wx/grid.h"
 #include "wx/bmpbuttn.h"
-
+#include "wx/datetime.h"
 
 #include "AdminLogin.h"
 
@@ -25,7 +25,8 @@ public:
 	wxStaticText* m_Text = nullptr;
 
 	wxStatusBar* stats = nullptr;
-	
+	wxDateTime now = wxDateTime::Now();
+	wxString date1 = now.Format(wxT("%B %d %Y"));
 
 	//wxGrid* grid = nullptr;
 
