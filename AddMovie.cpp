@@ -8,9 +8,10 @@ wxEND_EVENT_TABLE()
 
 
 
-NewMovie movie;
+NewMovie m;
 
 AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),wxSize(800,800)) {
+	
 	//wxStaticText *m_Text = new wxStaticText(this, wxID_ANY, "ADMIN LOGIN", wxPoint(140, 30), wxSize(300, 40));
 
 	/*-----------------------------------------------------------------
@@ -104,7 +105,38 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 				           DELETE MOVIES PANEL
 	-----------------------------------------------------------------*/
 
+	basicListView = new wxListView(bottomPanel);
+	basicListView->AppendColumn("SN");
+	basicListView->AppendColumn("Movie Name");
+	basicListView->AppendColumn("Action");
+	basicListView->SetColumnWidth(0, 30);
+	basicListView->SetColumnWidth(1, 100);
+	basicListView->SetColumnWidth(2, 50);
+
 	
+
+	
+	//NewMovie m;
+	int i = 0;
+	file->Open("data.txt", "r");
+	if (file->IsOpened()) {
+		wxLogStatus(wxT("File is opened"));
+
+		while ((file->Read(&m, sizeof(m)) == 0)) {
+			wxLogStatus(wxT("Inside File "));
+			basicListView->InsertItem(i, i + 1);
+			basicListView->SetItem(i, 1, m.name);
+			basicListView->SetItem(i, 2, "DELETE");
+			i++;
+		};
+	}
+	else {
+		wxLogStatus("file is not opened");
+	}
+	
+
+
+
 
 
 	/*-----------------------------------------------------------------
@@ -154,7 +186,6 @@ void AddMovie::addFile(wxCommandEvent& evt)
 		wxLogStatus(path);
 
 		wxCopyFile(path, pastePath,true);
-
 		
 	}
 
@@ -177,19 +208,18 @@ void AddMovie::addMovie(wxCommandEvent& evt)
 	else {
 		
 		
-		wxFile file;
-		file.Create("Datafile.dat", true);
-		if (file.IsOpened()) {
+		
+		file->Open("data.txt", "a");
+		if (file->IsOpened()) {
 			wxLogStatus(wxT("File is opened"));
-			//getName = movieName->GetValue();
 			
-			wxStrcpy(movie.name, movieName->GetValue());
-			//movie.price= moviePrice->GetValue();
-			wxStrcpy(movie.filePath, path);
-			file.Write(movie.name);
-			//file.Write(movie.filePath);
-			//file.write()
+			getName = movieName->GetValue();
+			
+			wxStrcpy(m.name, movieName->GetValue());
+			wxStrcpy(m.filePath, path);
 
+			file->Write(&m, sizeof(m));
+			
 			//Movie added Popup
 			wxMessageDialog dialog(NULL, wxT("New Movie Added Sucessfully."), wxT("Wohoooooo !"), wxOK_DEFAULT | wxICON_INFORMATION);
 

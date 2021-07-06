@@ -6,10 +6,13 @@
 #include "wx/listctrl.h"
 
 #include "wx/file.h"
+#include "wx/ffile.h"
 #include <wx/datetime.h>
-
+#include <wx/wxsqlite3.h>
+#include <wx/textfile.h>
 #include <iostream>
 #include <fstream>
+
 
 
 using namespace std;
@@ -39,6 +42,10 @@ public:
 	wxDateTime now = wxDateTime::Now();
 	wxString date1 = now.Format();
 	wxString getName, getUser, getSeat, getPath;
+	
+	//Files
+	wxFFile* file = new wxFFile;
+	
 	//operation
 	
 	//Events
@@ -72,3 +79,4 @@ public:
 
 	friend class AddMovie;
 };
+
