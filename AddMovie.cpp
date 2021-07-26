@@ -122,7 +122,7 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 	if (file->IsOpened()) {
 		wxLogStatus(wxT("File is opened"));
 
-		while ((file->Read(&m, sizeof(m)) == 0)) {
+		while ((file->Read(&m, sizeof(m)))) {
 			wxLogStatus(wxT("Inside File "));
 			basicListView->InsertItem(i, i + 1);
 			basicListView->SetItem(i, 1, m.name);
@@ -162,6 +162,9 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 	rightPanel->SetSizerAndFit(sizer);
 
 	populateListView();
+
+	file->Close();
+
 }
 
 AddMovie::~AddMovie() {
@@ -174,7 +177,7 @@ void AddMovie::addFile(wxCommandEvent& evt)
 	//File Choose module | Image Poster Choose | copy file and paste that to the assets/poster folder(not working)
 
 	wxString caption = wxT("Choose a movie poster");
-	wxString wildcard = wxT("PNG files(*.png) | *.png | JPG files(*.jpg) | *.jpg");
+	wxString wildcard = wxT("PNG files(*.png) | *.png");
 	wxString defaultDir = wxT("c : \\temp");
 	wxString defaultFilename = wxEmptyString;
 	wxFileDialog dialog(this, caption, defaultDir, defaultFilename, wildcard);
@@ -229,6 +232,8 @@ void AddMovie::addMovie(wxCommandEvent& evt)
 				wxLogStatus(wxT("You pressed ok "));
 				break;
 			}
+
+			file->Close();
 		}
 	}
 

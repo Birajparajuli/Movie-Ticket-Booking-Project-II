@@ -60,7 +60,7 @@ public:
 
 
 class NewMovie {
-private:
+public:
 	char name[20] ;
 	char userName[20];
 	float price;
@@ -68,7 +68,7 @@ private:
 	char filePath[100];
 
 public:
-	NewMovie(const char n[20]="Movie name", const char un[20]="User Name", float p=0, const char s[30]="aa",const char f[100]="c://") {
+	/*NewMovie(const char n[20] = "Movie name", const char un[20] = "User Name", float p = 0, const char s[30] = "aa", const char f[100] = "c://") {
 		wxStrcpy(name, n);
 		wxStrcpy(userName, un);
 		wxStrcpy(seatsNum, s);
@@ -76,7 +76,7 @@ public:
 		price = p;
 
 	}
-
+	*/
 	friend class AddMovie;
 };
 

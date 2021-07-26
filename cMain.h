@@ -4,7 +4,7 @@
 #include "wx/grid.h"
 #include "wx/bmpbuttn.h"
 #include "wx/datetime.h"
-
+#include "wx/ffile.h"
 #include "AdminLogin.h"
 
 
@@ -31,6 +31,9 @@ public:
 	//wxGrid* grid = nullptr;
 
 	wxGridSizer* gridSizer = nullptr;
+
+	//File
+	wxFFile* file = new wxFFile;
 
 	
 	void OnMenuExit(wxCommandEvent& evt);
