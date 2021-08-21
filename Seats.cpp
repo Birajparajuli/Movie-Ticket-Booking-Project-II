@@ -8,6 +8,7 @@ wxEND_EVENT_TABLE()
 
 Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), wxSize(800, 800))
 {
+	
 	topPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
 	panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
 	topPanel->SetBackgroundColour(wxColour(0, 0, 0));
@@ -74,7 +75,7 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 	btn = new wxBitmapButton * [FieldHeight * FieldWidth];
 	gridSizer = new wxGridSizer(FieldWidth, FieldHeight, 20, 20);
 	
-	
+	nField = new int[FieldWidth * FieldHeight];
 
 	for (int x = 0; x < FieldWidth; x++) {
 		for (int y = 0; y < FieldHeight; y++) {
@@ -87,8 +88,15 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 			btn[y * FieldWidth + x]->SetBackgroundColour(not_booked);
 
 			btn[y * FieldWidth + x]->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &Seats::OnButtonClicked, this);
-
+			nField[y * FieldWidth + x] = 0;
 		}
+	}
+
+	sFile->Open("seats.txt", "a");
+
+	if (nField[y * FieldWidth + x] == -1) {
+		btn[y * FieldWidth + x]->Enable(false);
+
 	}
 
 	//Add grid sizer to this window
@@ -128,12 +136,14 @@ wxColour booked = wxColour(0, 128, 128);
 
 void Seats::OnButtonClicked(wxCommandEvent& evt) {
 	wxColour booked = wxColour(450, 0, 0);
-	int x = (evt.GetId() - 10000) % FieldWidth;
-	int y = (evt.GetId() - 10000) / FieldHeight;
+	 x = (evt.GetId() - 10000) % FieldWidth;
+	 y = (evt.GetId() - 10000) / FieldHeight;
 	btn[y * FieldWidth + x]->SetBackgroundColour(booked);
+	btn[y * FieldWidth + x]->Disable();
+	nField[y*FieldWidth+x] = 1;
+	seatNum = nField[y * FieldWidth + x];
+	seatStats = 1;
 
-	btn[y * FieldWidth + x]->Enable(false);
-	
 	s++;
 	//wxString con = wxString("Total seats selected")::Format(wxT("%d"), s);
 	//m_Text = new wxStaticText(this, wxID_ANY, "Seat Selected", wxPoint(40, 40));
@@ -145,7 +155,7 @@ void Seats::OnButtonClicked(wxCommandEvent& evt) {
 	m_Text->SetLabel(wxString::Format(wxT(" %d"), s));
 	m_Price->SetLabel(wxString::Format(wxT(" Rs. %d"), s*500));
 	
-
+	evt.Skip();
 	
 
 }

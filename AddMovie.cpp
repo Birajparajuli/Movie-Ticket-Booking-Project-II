@@ -23,23 +23,23 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 	bottomPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
 	bottomPanel->SetBackgroundColour(wxColour(100,200,100));
 
-	rightPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
-	rightPanel->SetBackgroundColour(wxColour(0, 200, 100));
+	//rightPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
+	//rightPanel->SetBackgroundColour(wxColour(0, 200, 100));
 
 	
-	windowSizer = new wxBoxSizer(wxHORIZONTAL);
+	//windowSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	sizer1 = new wxBoxSizer(wxVERTICAL);
-	sizer1->Add(rightPanel, 1, wxEXPAND | wxRIGHT | wxBOTTOM | wxRIGHT,5);
+	//sizer1 = new wxBoxSizer(wxVERTICAL);
+	//sizer1->Add(rightPanel, 1, wxEXPAND | wxRIGHT | wxBOTTOM | wxRIGHT,5);
 
 	sizer = new wxBoxSizer(wxVERTICAL);
 	sizer->Add(topPanel, 1, wxEXPAND | wxALL, 5);
-	sizer->Add(bottomPanel, 1, wxEXPAND | wxRIGHT | wxBOTTOM | wxLEFT, 5);
+	sizer->Add(bottomPanel, 1, wxEXPAND | wxALL, 5);
 
-	windowSizer->Add(sizer, 1, wxEXPAND | wxALL);
-	windowSizer->Add(sizer1, 2, wxEXPAND | wxALL);
+	//windowSizer->Add(sizer, 1, wxEXPAND | wxALL);
+	//windowSizer->Add(sizer1, 2, wxEXPAND | wxALL);
 
-	this->SetSizer(windowSizer);
+	this->SetSizer(sizer);
 
 	
 	/*-------------------------------------------------------
@@ -108,12 +108,16 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 	basicListView = new wxListView(bottomPanel);
 	basicListView->AppendColumn("SN");
 	basicListView->AppendColumn("Movie Name");
+	basicListView->AppendColumn("Price");
 	basicListView->AppendColumn("Action");
 	basicListView->SetColumnWidth(0, 30);
-	basicListView->SetColumnWidth(1, 100);
-	basicListView->SetColumnWidth(2, 50);
+	basicListView->SetColumnWidth(1, 300);
+	basicListView->SetColumnWidth(2, 200);
+	basicListView->SetColumnWidth(3, 200);
 
-	
+	auto sizer = new wxBoxSizer(wxVERTICAL);
+	sizer->Add(basicListView, 1, wxALL | wxEXPAND, 0);
+	bottomPanel->SetSizerAndFit(sizer);
 
 	
 	//NewMovie m;
@@ -124,9 +128,10 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 
 		while ((file->Read(&m, sizeof(m)))) {
 			wxLogStatus(wxT("Inside File "));
-			basicListView->InsertItem(i, i + 1);
+			basicListView->InsertItem(i, i );
 			basicListView->SetItem(i, 1, m.name);
-			basicListView->SetItem(i, 2, "DELETE");
+			basicListView->SetItem(i, 2, _("RS."));
+			basicListView->SetItem(i, 3, "DELETE");
 			i++;
 		};
 	}
@@ -142,7 +147,7 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 	/*-----------------------------------------------------------------
 				         BOOKED SEAT LISTS
 	-------------------------------------------------------------------*/
-	basicListView = new wxListView(rightPanel);
+	/*basicListView = new wxListView(rightPanel);
 	basicListView->AppendColumn("SN");
 	basicListView->AppendColumn("Date/time");
 	basicListView->AppendColumn("Movie Name");
@@ -162,7 +167,7 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 	rightPanel->SetSizerAndFit(sizer);
 
 	populateListView();
-
+	*/
 	file->Close();
 
 }
@@ -191,6 +196,8 @@ void AddMovie::addFile(wxCommandEvent& evt)
 		wxCopyFile(path, pastePath,true);
 		
 	}
+	Refresh();
+	Update();
 
 
 }
@@ -236,7 +243,9 @@ void AddMovie::addMovie(wxCommandEvent& evt)
 			file->Close();
 		}
 	}
-
+	this->Refresh();
+	this->Update();
+	evt.Skip();
 }
 
 void AddMovie::populateListView()

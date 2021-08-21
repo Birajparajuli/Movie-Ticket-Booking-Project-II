@@ -15,14 +15,15 @@ public:
 	cMain();
 	~cMain();
 
-
-
+	wxPanel* panel = nullptr;
+	wxBitmapButton* button = nullptr;
 	wxToolBar* m_ToolBar = nullptr;
 	wxMenuBar* m_MenuBar = nullptr;
 
 	wxButton* m_Button = nullptr;
 	wxImage* m_Image = nullptr;
 	wxStaticText* m_Text = nullptr;
+	wxStaticBitmap* m_bitmap = nullptr;
 
 	wxStatusBar* stats = nullptr;
 	wxDateTime now = wxDateTime::Now();
@@ -38,8 +39,7 @@ public:
 	
 	void OnMenuExit(wxCommandEvent& evt);
 	void OnAdmin(wxCommandEvent& evt);
-
-	void ClrScr(wxCommandEvent& evt);
+	void ButtonDown(wxMouseEvent& evt);
 	wxDECLARE_EVENT_TABLE();
 };
 

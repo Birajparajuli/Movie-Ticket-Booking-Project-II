@@ -7,9 +7,11 @@
 //Event Handlers Here
 
 wxBEGIN_EVENT_TABLE(cMain, wxFrame)
+
 EVT_MENU(10002, cMain::OnMenuExit)
 EVT_MENU(10001, cMain::OnAdmin)
-EVT_BUTTON(222, cMain::ClrScr)
+
+	
 wxEND_EVENT_TABLE()
 
 
@@ -19,7 +21,7 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30,
 {
 	NewMovie m;
 
-	wxPanel* panel = new wxPanel(this, -1);
+	panel = new wxPanel(this, -1);
 	//m_Text = new wxStaticText(panel, wxID_ANY, "MOVIES", wxPoint(500, 0));
 	
 	//Icon
@@ -60,32 +62,13 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30,
 	//Show Toolbar
 	toolBar->Realize();
 	
-	
-
-
-	//Creating Grid Like Excel || Can be used in Admin Section
-	/*
-	grid = new wxGrid(this, wxID_ANY, wxDefaultPosition, wxSize(400, 300));
-	grid->CreateGrid(4, 8);
-	grid->SetRowSize(0, 60);
-	grid->SetColSize(0, 120);
-
-	grid->SetCellValue(0, 0, wxT("HAHAHAHA"));
-	*/
 
 	//Grid Sizers
 
 	gridSizer = new wxGridSizer(2, 4, 10, 10);
 	SetSizer(gridSizer);
 
-	//Movie List
-	wxImage::AddHandler(new wxJPEGHandler);
-
 	
-	wxBitmap bmp(wxT("Assets/2.jpg"), wxBITMAP_TYPE_JPEG);
-
-
-
 
 /*
 	for (int i = 0; i < 8; i++)
@@ -101,22 +84,22 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30,
 	file->Open("data.txt", "r");
 	if (file->IsOpened()) {
 		wxLogStatus(wxT("File is opened"));
-
-
+		
 		while ((file->Read(&m, sizeof(m)))) {
-			wxLogStatus(wxT("Inside File "));
+			
 
 			::wxInitAllImageHandlers();
-			file->Flush();
 			
-			wxBitmap bmp(_(m.filePath), wxBITMAP_TYPE_PNG);
-
-			wxBitmapButton* button = new wxBitmapButton(panel, 222, bmp);
-			gridSizer->Add(button, 0, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTRE_VERTICAL | wxALL, 5);
-			file->Flush();
+			//wxBitmap bmp(m.filePath, wxBITMAP_TYPE_PNG);
+			
+			wxBitmap movie = wxBitmap(m.filePath, wxBITMAP_TYPE_PNG);
+			//button = new wxBitmapButton(panel, 222, moviePhoto[i]);
+			m_bitmap = new wxStaticBitmap(this, 212, movie, wxPoint(10, 10), wxSize(130, 150), 0, "tes");
+			//m_bitmap->Connect(212, wxEVT_LEFT_DOWN, wxCommandEventHandler(cMain::OnClick));
+			//m_bitmap->Bind(wxEVT_LEFT_DOWN, &cMain::ButtonDown,this);
+			
+			gridSizer->Add(m_bitmap, 0, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTRE_VERTICAL | wxALL, 5);
 		}
-
-		
 	}
 	else {
 		wxLogStatus(wxT("Error Opening Files."));
@@ -132,6 +115,7 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30,
 }
 cMain::~cMain()
 {
+	delete[]button;
 }
 
 void cMain::OnMenuExit(wxCommandEvent &evt)
@@ -148,9 +132,13 @@ void cMain::OnAdmin(wxCommandEvent &evt)
 	evt.Skip();
 }
 
-void cMain::ClrScr(wxCommandEvent &evt)
+inline void cMain::ButtonDown(wxMouseEvent& evt)
 {
-
-	Seats *s = new Seats("Book Seats");
+	Seats* s = new Seats("Book Seats");
+	//s->Fit();
 	s->Show();
+	evt.Skip();
 }
+
+
+

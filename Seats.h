@@ -3,6 +3,7 @@
 #include "wx/wx.h"
 #include "wx/chartype.h"
 #include "wx/bitmap.h"
+#include "wx/ffile.h"
 
 class Seats : public wxFrame
 {
@@ -16,6 +17,12 @@ public:
 	//wxButton** btn;
 	wxBitmapButton** btn;
 	wxColour not_booked = wxColour(0, 128, 0);
+	int* nField = nullptr;
+	bool bFirstClick = true;
+	int x, y, seatNum, seatStats;
+
+	//File
+	wxFFile* sFile = new wxFFile;
 private:
 	wxButton* m_Seats = nullptr;
 	wxButton* m_Seats1 = nullptr;
