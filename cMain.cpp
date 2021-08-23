@@ -7,11 +7,8 @@
 //Event Handlers Here
 
 wxBEGIN_EVENT_TABLE(cMain, wxFrame)
-
 EVT_MENU(10002, cMain::OnMenuExit)
 EVT_MENU(10001, cMain::OnAdmin)
-
-	
 wxEND_EVENT_TABLE()
 
 
@@ -21,8 +18,6 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30,
 {
 	NewMovie m;
 
-	panel = new wxPanel(this, -1);
-	//m_Text = new wxStaticText(panel, wxID_ANY, "MOVIES", wxPoint(500, 0));
 	
 	//Icon
 	wxIcon icon4;
@@ -64,12 +59,12 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30,
 	
 
 	//Grid Sizers
-
-	gridSizer = new wxGridSizer(2, 4, 10, 10);
-	SetSizer(gridSizer);
-
 	
+	wxBoxSizer* movieList = new wxBoxSizer(wxVERTICAL);
 
+	wxFont titleFont(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false);
+	wxFont secondaryFont(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL, false);
+	
 /*
 	for (int i = 0; i < 8; i++)
 	{
@@ -91,21 +86,34 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30,
 			::wxInitAllImageHandlers();
 			
 			//wxBitmap bmp(m.filePath, wxBITMAP_TYPE_PNG);
-			
-			wxBitmap movie = wxBitmap(m.filePath, wxBITMAP_TYPE_PNG);
 			//button = new wxBitmapButton(panel, 222, moviePhoto[i]);
-			m_bitmap = new wxStaticBitmap(this, 212, movie, wxPoint(10, 10), wxSize(130, 150), 0, "tes");
-			//m_bitmap->Connect(212, wxEVT_LEFT_DOWN, wxCommandEventHandler(cMain::OnClick));
-			//m_bitmap->Bind(wxEVT_LEFT_DOWN, &cMain::ButtonDown,this);
+
+			wxBitmap movie = wxBitmap(m.filePath, wxBITMAP_TYPE_PNG);
 			
-			gridSizer->Add(m_bitmap, 0, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTRE_VERTICAL | wxALL, 5);
+			m_bitmap = new wxStaticBitmap(this, 212, movie,wxDefaultPosition, wxDefaultSize);
+			movieList->Add(m_bitmap);
+			m_name = new wxStaticText(this, 4004, m.name);
+			m_name->SetFont(titleFont);
+			movieList->Add(m_name);
+			m_price = new wxStaticText(this, 4005, "Rs. 340");
+			//m_price->SetLabel(wxString::Format(wxT("Rs. %d"), m.price));
+			movieList->Add(m_price);
+			m_price->SetFont(secondaryFont);
+			m_button = new wxButton(this, m.id,"Book Now");
+			m_button->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &cMain::OnClick, this);
+			movieList->Add(m_button);
+			m_button->SetFont(secondaryFont);
 		}
 	}
 	else {
 		wxLogStatus(wxT("Error Opening Files."));
 	}
-	Center();
-
+	
+	this->SetSizer(movieList);
+	//this->AlwaysShowScrollbars(true);
+	this->CanScroll(wxVERTICAL);
+    //SetScrollbar(wxVERTICAL, 0, 16, 50);
+	//this->SetScrollbar(wxVERTICAL, 0, 16, 50);
 
 	//Bottom Status Bar
 	stats = CreateStatusBar(2);
@@ -116,6 +124,8 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30,
 cMain::~cMain()
 {
 	delete[]button;
+	delete[]gridSizer;
+
 }
 
 void cMain::OnMenuExit(wxCommandEvent &evt)
@@ -132,7 +142,7 @@ void cMain::OnAdmin(wxCommandEvent &evt)
 	evt.Skip();
 }
 
-inline void cMain::ButtonDown(wxMouseEvent& evt)
+inline void cMain::OnClick(wxCommandEvent& evt)
 {
 	Seats* s = new Seats("Book Seats");
 	//s->Fit();

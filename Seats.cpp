@@ -5,6 +5,7 @@ wxBEGIN_EVENT_TABLE(Seats, wxFrame)
 //EVT_BUTTON(101, Seats::onButtonClicked)
 wxEND_EVENT_TABLE()
 
+seatStats movieSeat;
 
 Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), wxSize(800, 800))
 {
@@ -73,9 +74,10 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 	*/
 
 	btn = new wxBitmapButton * [FieldHeight * FieldWidth];
+
 	gridSizer = new wxGridSizer(FieldWidth, FieldHeight, 20, 20);
 	
-	nField = new int[FieldWidth * FieldHeight];
+	//nField = new int[FieldWidth * FieldHeight];
 
 	for (int x = 0; x < FieldWidth; x++) {
 		for (int y = 0; y < FieldHeight; y++) {
@@ -88,17 +90,12 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 			btn[y * FieldWidth + x]->SetBackgroundColour(not_booked);
 
 			btn[y * FieldWidth + x]->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &Seats::OnButtonClicked, this);
-			nField[y * FieldWidth + x] = 0;
+			//nField[y * FieldWidth + x] = 0;
 		}
 	}
 
 	sFile->Open("seats.txt", "a");
-
-	if (nField[y * FieldWidth + x] == -1) {
-		btn[y * FieldWidth + x]->Enable(false);
-
-	}
-
+	
 	//Add grid sizer to this window
 	panel->SetSizer(gridSizer);
 	//mainSizer->Add(gridSizer);
@@ -136,13 +133,17 @@ wxColour booked = wxColour(0, 128, 128);
 
 void Seats::OnButtonClicked(wxCommandEvent& evt) {
 	wxColour booked = wxColour(450, 0, 0);
-	 x = (evt.GetId() - 10000) % FieldWidth;
-	 y = (evt.GetId() - 10000) / FieldHeight;
+	x = (evt.GetId() - 10000) % FieldWidth;
+	y = (evt.GetId() - 10000) / FieldHeight;
+
+
+
 	btn[y * FieldWidth + x]->SetBackgroundColour(booked);
+
+
 	btn[y * FieldWidth + x]->Disable();
-	nField[y*FieldWidth+x] = 1;
-	seatNum = nField[y * FieldWidth + x];
-	seatStats = 1;
+
+	
 
 	s++;
 	//wxString con = wxString("Total seats selected")::Format(wxT("%d"), s);

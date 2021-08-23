@@ -42,7 +42,7 @@ public:
 	wxDateTime now = wxDateTime::Now();
 	wxString date1 = now.Format();
 	wxString getName, getUser, getSeat, getPath;
-	
+	wxString getPrice;
 	//Files
 	wxFFile* file = new wxFFile;
 	
@@ -63,9 +63,10 @@ class NewMovie {
 public:
 	char name[20] ;
 	char userName[20];
-	float price;
+	int price;
 	char seatsNum[30];
 	char filePath[100];
+	int id;
 
 public:
 	/*NewMovie(const char n[20] = "Movie name", const char un[20] = "User Name", float p = 0, const char s[30] = "aa", const char f[100] = "c://") {

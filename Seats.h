@@ -42,5 +42,14 @@ private:
 	//void onClickBook(wxCommandEvent& evt);
 	void OnButtonClicked(wxCommandEvent& evt);
 	wxDECLARE_EVENT_TABLE();
+
+	friend class seatStats;
 };
 
+
+class seatStats {
+public:
+	int movieId;
+	int seat [36];
+	friend class Seats;
+};

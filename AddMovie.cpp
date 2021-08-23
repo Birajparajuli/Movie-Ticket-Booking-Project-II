@@ -224,9 +224,11 @@ void AddMovie::addMovie(wxCommandEvent& evt)
 			wxLogStatus(wxT("File is opened"));
 			
 			getName = movieName->GetValue();
-			
+			getPrice = moviePrice->GetValue();
+			m.price = wxAtoi(getPrice);
 			wxStrcpy(m.name, movieName->GetValue());
 			wxStrcpy(m.filePath, path);
+			m.id = wxNewId();
 
 			file->Write(&m, sizeof(m));
 			
