@@ -5,6 +5,8 @@
 #include "wx/bitmap.h"
 #include "wx/ffile.h"
 
+#include "cMain.h"
+
 class Seats : public wxFrame
 {
 public:
@@ -44,6 +46,7 @@ private:
 	wxDECLARE_EVENT_TABLE();
 
 	friend class seatStats;
+	friend class cMain;
 };
 
 

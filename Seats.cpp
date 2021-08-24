@@ -1,5 +1,7 @@
 #include "Seats.h"
 
+#include "cMain.h"
+
 wxBEGIN_EVENT_TABLE(Seats, wxFrame)
 //EVT_BUTTON(101, Seats::onClickBook)
 //EVT_BUTTON(101, Seats::onButtonClicked)
@@ -9,6 +11,7 @@ seatStats movieSeat;
 
 Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), wxSize(800, 800))
 {
+
 	
 	topPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
 	panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
@@ -91,11 +94,36 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 
 			btn[y * FieldWidth + x]->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &Seats::OnButtonClicked, this);
 			//nField[y * FieldWidth + x] = 0;
+
+			for (int i = 0; i < 36; i++) {
+				movieSeat.seat[y * FieldWidth + x] = 0;
+			}
+
+
 		}
 	}
-
-	sFile->Open("seats.txt", "a");
 	
+	
+	sFile->Open("seats.txt", "r");
+	if (sFile->IsOpened()) {
+		cMain a;
+		while (sFile->Read(&movieSeat, sizeof(movieSeat))) {
+			wxLogStatus(wxT("Inside Seat Data File "));
+			if (a.id == movieSeat.movieId) {
+				for (int i = 0; i < 36; i++) {
+					if (movieSeat.seat[i] == 1) {
+						btn[i]->Disable();
+					}
+				}
+			}
+			else {
+				wxLogStatus(wxT("Error Occoured"));
+			}
+		}
+		
+	}
+	
+
 	//Add grid sizer to this window
 	panel->SetSizer(gridSizer);
 	//mainSizer->Add(gridSizer);
@@ -143,9 +171,22 @@ void Seats::OnButtonClicked(wxCommandEvent& evt) {
 
 	btn[y * FieldWidth + x]->Disable();
 
-	
 
 	s++;
+	cMain a;
+	//Saving State on file
+	sFile->Open("seats.txt", "a");
+	if (sFile->IsOpened()) {
+		wxLogStatus("Seat Data File is opened");
+		movieSeat.movieId = a.id;
+		for(int i = 0; i < 36; i++) {
+			movieSeat.seat[y * FieldWidth + x]=1;
+		}
+		sFile->Write(&movieSeat, sizeof(movieSeat));
+	}
+
+	sFile->Close();
+	
 	//wxString con = wxString("Total seats selected")::Format(wxT("%d"), s);
 	//m_Text = new wxStaticText(this, wxID_ANY, "Seat Selected", wxPoint(40, 40));
 	

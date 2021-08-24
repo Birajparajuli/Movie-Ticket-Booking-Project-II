@@ -33,6 +33,9 @@
     <ClInclude Include="AddMovie.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BuildBy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cMain.cpp">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AddMovie.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildBy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

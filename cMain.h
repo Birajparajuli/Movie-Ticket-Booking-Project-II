@@ -6,7 +6,7 @@
 #include "wx/datetime.h"
 #include "wx/ffile.h"
 #include "AdminLogin.h"
-
+#include "Seats.h";
 
 class cMain : public wxFrame
 {
@@ -15,6 +15,7 @@ public:
 	cMain();
 	~cMain();
 
+	int id;
 	wxPanel* panel = nullptr;
 	wxBitmapButton* button = nullptr;
 	wxToolBar* m_ToolBar = nullptr;
@@ -41,6 +42,9 @@ public:
 	void OnMenuExit(wxCommandEvent& evt);
 	void OnAdmin(wxCommandEvent& evt);
 	void OnClick(wxCommandEvent& evt);
+	void DevelopBy(wxCommandEvent& evt);
 	wxDECLARE_EVENT_TABLE();
+
+	friend class Seats;
 };
 
