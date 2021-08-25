@@ -8,6 +8,7 @@
 #include "AdminLogin.h"
 #include "Seats.h";
 
+
 class cMain : public wxFrame
 {
 
@@ -15,7 +16,7 @@ public:
 	cMain();
 	~cMain();
 
-	int id;
+	//int id;
 	wxPanel* panel = nullptr;
 	wxBitmapButton* button = nullptr;
 	wxToolBar* m_ToolBar = nullptr;
@@ -37,8 +38,8 @@ public:
 
 	//File
 	wxFFile* file = new wxFFile;
+	wxFFile* LastSeatFile = new wxFFile;
 
-	
 	void OnMenuExit(wxCommandEvent& evt);
 	void OnAdmin(wxCommandEvent& evt);
 	void OnClick(wxCommandEvent& evt);
@@ -48,3 +49,7 @@ public:
 	friend class Seats;
 };
 
+class seatId {
+public:
+	int id;
+};

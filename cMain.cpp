@@ -14,7 +14,6 @@ EVT_MENU(10003, cMain::DevelopBy)
 wxEND_EVENT_TABLE()
 
 
-
 //Main Window
 cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30, 30), wxSize(1000, 800))
 {
@@ -163,8 +162,8 @@ void cMain::OnMenuExit(wxCommandEvent &evt)
 void cMain::OnAdmin(wxCommandEvent &evt)
 {
 	AdminLogin *f = new AdminLogin("Admin Login");
-	f->FitInside();
-	//f->Show();
+	
+	f->Show();
 	evt.Skip();
 }
 
@@ -179,10 +178,19 @@ void cMain::DevelopBy(wxCommandEvent& evt)
 //Seat Booking Page Event
 void cMain::OnClick(wxCommandEvent& evt)
 {
+	seatId Sid;
 	Seats* s = new Seats("Book Seats");
 	//s->Fit();
 	s->Show();
-	id = evt.GetId();
+	Sid.id = evt.GetId();
+
+	//Saving Last Clicked Movie Id To a File
+	LastSeatFile->Open("lastseat.txt", "w+");
+	if (LastSeatFile->IsOpened()) {
+		LastSeatFile->Write(&Sid, sizeof(Sid));
+	}
+	LastSeatFile->Close();
+	wxLogStatus((wxString::Format(wxT("BTN ID: %d"), evt.GetId())));
 	evt.Skip();
 }
 

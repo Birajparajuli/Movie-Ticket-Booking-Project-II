@@ -1,6 +1,6 @@
 #include "Seats.h"
-
 #include "cMain.h"
+
 
 wxBEGIN_EVENT_TABLE(Seats, wxFrame)
 //EVT_BUTTON(101, Seats::onClickBook)
@@ -8,11 +8,9 @@ wxBEGIN_EVENT_TABLE(Seats, wxFrame)
 wxEND_EVENT_TABLE()
 
 seatStats movieSeat;
-
+seatId Sid;
 Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), wxSize(800, 800))
 {
-
-	
 	topPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
 	panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(200, 100));
 	topPanel->SetBackgroundColour(wxColour(0, 0, 0));
@@ -94,22 +92,32 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 
 			btn[y * FieldWidth + x]->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &Seats::OnButtonClicked, this);
 			//nField[y * FieldWidth + x] = 0;
-
+			
+			/*
 			for (int i = 0; i < 36; i++) {
 				movieSeat.seat[y * FieldWidth + x] = 0;
 			}
 
+			*/
+
 
 		}
 	}
-	
-	
+	//Get Id of last Clicked Id from a File
+	LastSeatFile->Open("lastseat.txt", "r");
+	if (LastSeatFile->IsOpened()) {
+		while (LastSeatFile->Read(&Sid, sizeof(Sid))) {
+			id = Sid.id;
+		}
+	}
+
 	sFile->Open("seats.txt", "r");
 	if (sFile->IsOpened()) {
-		cMain a;
+		
 		while (sFile->Read(&movieSeat, sizeof(movieSeat))) {
 			wxLogStatus(wxT("Inside Seat Data File "));
-			if (a.id == movieSeat.movieId) {
+			
+			if (id == movieSeat.movieId) {
 				for (int i = 0; i < 36; i++) {
 					if (movieSeat.seat[i] == 1) {
 						btn[i]->Disable();
@@ -122,6 +130,8 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 		}
 		
 	}
+	sFile->Close();
+	
 	
 
 	//Add grid sizer to this window
@@ -167,18 +177,36 @@ void Seats::OnButtonClicked(wxCommandEvent& evt) {
 
 
 	btn[y * FieldWidth + x]->SetBackgroundColour(booked);
-
-
 	btn[y * FieldWidth + x]->Disable();
 
 
 	s++;
-	cMain a;
+	
+	
 	//Saving State on file
 	sFile->Open("seats.txt", "a");
 	if (sFile->IsOpened()) {
 		wxLogStatus("Seat Data File is opened");
-		movieSeat.movieId = a.id;
+		int s = sizeof(movieSeat);
+		wxLogStatus((wxString::Format(wxT("BTN ID: %d"), id)));
+		while (sFile->Read(&movieSeat, sizeof(movieSeat))) {
+			if (movieSeat.movieId == id) {
+				for (int i = 0; i < 36; i++) {
+					movieSeat.seat[y * FieldWidth + x] = 1;
+				}
+				movieSeat.movieId = id;
+				sFile->Seek(s, wxFromCurrent);
+				sFile->Write(&movieSeat, sizeof(movieSeat));
+			}
+			else {
+				movieSeat.movieId = id;
+				for (int i = 0; i < 36; i++) {
+					movieSeat.seat[y * FieldWidth + x] = 1;
+				}
+				sFile->Write(&movieSeat, sizeof(movieSeat));
+			}
+		}
+		movieSeat.movieId = id;
 		for(int i = 0; i < 36; i++) {
 			movieSeat.seat[y * FieldWidth + x]=1;
 		}

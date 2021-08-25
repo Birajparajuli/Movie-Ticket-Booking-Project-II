@@ -130,7 +130,7 @@ AddMovie::AddMovie(const wxString& title):wxFrame(NULL, -1,title,wxPoint(-1,-1),
 			wxLogStatus(wxT("Inside File "));
 			basicListView->InsertItem(i, i );
 			basicListView->SetItem(i, 1, m.name);
-			basicListView->SetItem(i, 2, _("RS."));
+			basicListView->SetItem(i, 2, (wxString::Format(wxT("Rs.%d"), m.price)));
 			basicListView->SetItem(i, 3, "DELETE");
 			i++;
 		};

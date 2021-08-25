@@ -4,8 +4,10 @@
 #include "wx/chartype.h"
 #include "wx/bitmap.h"
 #include "wx/ffile.h"
-
 #include "cMain.h"
+
+
+//extern int id;
 
 class Seats : public wxFrame
 {
@@ -16,6 +18,8 @@ public:
 	int FieldWidth = 6;
 	int FieldHeight = 6;
 	int s = 0;
+	int id;
+	
 	//wxButton** btn;
 	wxBitmapButton** btn;
 	wxColour not_booked = wxColour(0, 128, 0);
@@ -25,12 +29,13 @@ public:
 
 	//File
 	wxFFile* sFile = new wxFFile;
+	wxFFile* LastSeatFile = new wxFFile;
 private:
 	wxButton* m_Seats = nullptr;
 	wxButton* m_Seats1 = nullptr;
 	wxStaticText* m_Text = nullptr;
 	wxStaticText* m_Price = nullptr;
-	
+	int SeatId;
 
 	wxStatusBar* stats = nullptr;
 
@@ -56,3 +61,5 @@ public:
 	int seat [36];
 	friend class Seats;
 };
+
+
