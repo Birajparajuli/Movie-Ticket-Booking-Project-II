@@ -111,6 +111,8 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 		}
 	}
 
+	
+	//Get Previously booked seat from a File
 	sFile->Open("seats.txt", "r");
 	if (sFile->IsOpened()) {
 		
@@ -131,7 +133,6 @@ Seats::Seats(const wxString& title): wxFrame(NULL, -1, title, wxPoint(-1, -1), w
 		
 	}
 	sFile->Close();
-	
 	
 
 	//Add grid sizer to this window
@@ -184,17 +185,19 @@ void Seats::OnButtonClicked(wxCommandEvent& evt) {
 	
 	
 	//Saving State on file
-	sFile->Open("seats.txt", "a");
+	
+	sFile->Open("seats.txt", "a+");
 	if (sFile->IsOpened()) {
 		wxLogStatus("Seat Data File is opened");
 		int s = sizeof(movieSeat);
 		wxLogStatus((wxString::Format(wxT("BTN ID: %d"), id)));
+		/*
 		while (sFile->Read(&movieSeat, sizeof(movieSeat))) {
 			if (movieSeat.movieId == id) {
 				for (int i = 0; i < 36; i++) {
 					movieSeat.seat[y * FieldWidth + x] = 1;
 				}
-				movieSeat.movieId = id;
+				movieSeat.movieId == id;
 				sFile->Seek(s, wxFromCurrent);
 				sFile->Write(&movieSeat, sizeof(movieSeat));
 			}
@@ -206,6 +209,7 @@ void Seats::OnButtonClicked(wxCommandEvent& evt) {
 				sFile->Write(&movieSeat, sizeof(movieSeat));
 			}
 		}
+		*/
 		movieSeat.movieId = id;
 		for(int i = 0; i < 36; i++) {
 			movieSeat.seat[y * FieldWidth + x]=1;

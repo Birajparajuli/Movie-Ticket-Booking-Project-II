@@ -81,7 +81,7 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Movie Ticket Booking ", wxPoint(30,
 	*/
 
 	//Opening File in Reading Mode
-	file->Open("data.txt", "r");
+	file->Open("data.txt", "r+");
 
 	//Check either file is opened or not
 	if (file->IsOpened()) 
